@@ -26,7 +26,7 @@ class UserWithInRadiusServiceTest {
     public static final String CITY_LONDON= "London";
     private String URI ;
 
-    private UserWithInRadiusService userWithInRadiusService;
+    private UsersWithInRadiusService userWithInRadiusService;
 
     @Autowired
     private GeoDistanceServiceImpl geoDistanceService;
@@ -34,9 +34,10 @@ class UserWithInRadiusServiceTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        userWithInRadiusService = new UserWithInRadiusService(userServiceUrl, restTemplate , geoDistanceService);
+        userWithInRadiusService = new UsersWithInRadiusService(userServiceUrl, restTemplate, geoDistanceService);
         URI = userServiceUrl + "/users";
     }
+
 
     @Test
     public void test_getUser_returns_EmptyList_BAD_Request1() {

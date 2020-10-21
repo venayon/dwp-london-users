@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class UserWithInRadiusService {
+
+public class UsersWithInRadiusService {
 
     private final RestTemplate restTemplate;
 
@@ -22,9 +23,9 @@ public class UserWithInRadiusService {
     private final GeoDistanceServiceImpl geoDistanceService;
 
     @Autowired
-    public UserWithInRadiusService(final @Value("${user.location.api.url}") String userServiceUrl,
-                                   RestTemplate restTemplate,
-                                   GeoDistanceServiceImpl geoDistanceService)  {
+    public UsersWithInRadiusService(final @Value("${user.location.api.url}") String userServiceUrl,
+                                    RestTemplate restTemplate,
+                                    GeoDistanceServiceImpl geoDistanceService) {
         this.userServiceUrl = userServiceUrl;
         this.restTemplate = restTemplate;
         this.geoDistanceService = geoDistanceService;
@@ -36,7 +37,10 @@ public class UserWithInRadiusService {
         final String uri = userServiceUrl + "/users";
 
         final ResponseEntity<User[]> response = restTemplate.exchange(uri, HttpMethod.GET, null, User[].class);
+        List<User> users = HttpStatus.OK.equals(response.getStatusCode()) && response.getBody() != null ?
+                Arrays.asList(response.getBody()) : new ArrayList<>();
 
-        return HttpStatus.OK.equals(response.getStatusCode()) && response.getBody()!= null ? Arrays.asList(response.getBody()) : new ArrayList<>();
+        return users;
+
     }
 }

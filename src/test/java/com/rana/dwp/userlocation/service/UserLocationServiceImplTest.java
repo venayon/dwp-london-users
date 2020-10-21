@@ -5,48 +5,39 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
-
-import java.util.List;
+import java.util.Set;
 
 public class UserLocationServiceImplTest {
 
-   /* @InjectMocks
-    private UserLocationServiceImpl userLocationService;
+    @InjectMocks
+    private UserLocationService userLocationService;
 
     @InjectMocks
-    private UserFromCity londonUserService;
+    private UserFromCityService userFromCityService;
+
+    @InjectMocks
+    private UsersWithInRadiusService usersWithInRadiusService;
+
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        userLocationService = new UserLocationService(userFromCityService, usersWithInRadiusService);
     }
-
-
-    public static final String CITY_LONDON= "London";
 
     @Test
-    public void test_usersByCity_Return_UserList(){
-       String city = "London";
-       User user = new User();
-       List<User> mockusres = List.of(user);
-       when(londonUserService.usersByCity(CITY_LONDON)).thenReturn(mockusres);
-       List<User> users = userLocationService.usersByCity(city);
-       assertThat(users).contains(user);
+    public void test_usersByCity_Return() {
+        String city = "London";
+        Set<User> users = userLocationService.usersWithInFifyMilesOdCity(city);
+        Assertions.assertNotNull(users);
     }
-
 
     @Test
     public void test_usersByCity_Return_EmptyUserList(){
         String city = "London";
-        List<User> users = userLocationService.usersByCity(city);
+        Set<User> users = userLocationService.usersWithInFifyMilesOdCity(city);
         Assertions.assertNotNull(users);
     }
-*/
-
 }
