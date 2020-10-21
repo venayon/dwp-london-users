@@ -1,6 +1,6 @@
 package com.rana.dwp.userlocation.util;
 
-import com.rana.dwp.userlocation.api.LocationCoordinates;
+import com.rana.dwp.userlocation.api.Coordinates;
 import org.springframework.stereotype.Service;
 
 /**
@@ -31,7 +31,7 @@ public class GeoDistanceServiceImpl {
      * @param destination :  Search Location Coordinates
      * @return distince between user and city Coordinates
      */
-    public Double distanceBetween(LocationCoordinates origin, LocationCoordinates destination) {
+    public Double distanceBetween(Coordinates origin, Coordinates destination) {
 
         var lat1 = origin.getLatitude();
         var lon1 = origin.getLongitude();

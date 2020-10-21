@@ -1,15 +1,13 @@
 package com.rana.dwp.userlocation.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+
 
 import java.util.Objects;
 
-@Data
 public class User {
 
     private int id;
-
     @JsonProperty("first_name")
     private String firstName;
     @JsonProperty("last_name")
@@ -19,8 +17,6 @@ public class User {
     private String ipAddress;
     private double latitude;
     private double longitude;
-
-
 
     @Override
     public boolean equals(Object o) {
@@ -37,5 +33,60 @@ public class User {
         return Objects.hash(id, firstName, lastName);
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getIpAddress() {
+        return ipAddress;
+    }
+
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
 }
 

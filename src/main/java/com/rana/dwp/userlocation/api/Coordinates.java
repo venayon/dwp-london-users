@@ -2,12 +2,12 @@ package com.rana.dwp.userlocation.api;
 
 import java.util.Objects;
 
-public class LocationCoordinates {
+public class Coordinates {
     private Double latitude;
     private Double longitude;
 
 
-    public LocationCoordinates(double longitude, double latitude) {
+    public Coordinates(double longitude, double latitude) {
         this.longitude = longitude;
         this.latitude = latitude;
     }
@@ -24,7 +24,7 @@ public class LocationCoordinates {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        LocationCoordinates that = (LocationCoordinates) o;
+        Coordinates that = (Coordinates) o;
         return Double.compare(that.longitude, longitude) == 0 &&
                 Double.compare(that.latitude, latitude) == 0;
     }

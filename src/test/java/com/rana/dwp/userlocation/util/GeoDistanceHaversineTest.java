@@ -1,6 +1,6 @@
 package com.rana.dwp.userlocation.util;
 
-import com.rana.dwp.userlocation.api.LocationCoordinates;
+import com.rana.dwp.userlocation.api.Coordinates;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -30,8 +30,8 @@ class GeoDistanceHaversineTest {
         double destinationlatitude = 50.210;
         double destinationlongitude = 10.210;
 
-        LocationCoordinates orgin =new LocationCoordinates(orginlongitude , orginlatitude);
-        LocationCoordinates destination =new LocationCoordinates(destinationlongitude , destinationlatitude);
+        Coordinates orgin =new Coordinates(orginlongitude , orginlatitude);
+        Coordinates destination =new Coordinates(destinationlongitude , destinationlatitude);
         double distance = distanceService.distanceBetween(orgin,destination);
         assertThat(distance).isEqualTo(0);
 
