@@ -1,4 +1,4 @@
-package com.rana.dwp.userlocation.controller;
+package com.rana.dwp.userlocation.service;
 
 import com.rana.dwp.userlocation.api.User;
 
