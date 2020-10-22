@@ -43,22 +43,20 @@ class UserWithInRadiusServiceTest {
     @Test
     public void test_getUser_returns_EmptyList_BAD_Request1() {
         Double radius = 50.00;
-        Double lon_latitude = 50.123456;
-        Double lon_longitude = 20.7654;
+       final double LONDON_LATITUDE = 51.50853;
+        final double LONDON_LONGITUDE = -0.12574;
 
         User closeUser = new User();
+
         closeUser.setId(100);
         closeUser.setLatitude(51.50853);
         closeUser.setLongitude(-0.12574);
         //51.50853, -0.12574
-
-        User[] londonUsers = {closeUser};
-        User[] london = Utils.allusers();
-        ResponseEntity<User[]> responseEntity = new ResponseEntity<>(london, HttpStatus.OK);
+        User[] closeUsers = {closeUser};
+        ResponseEntity<User[]> responseEntity = new ResponseEntity<User[]>(closeUsers, HttpStatus.OK);
         when(restTemplate.exchange(URI, HttpMethod.GET, null, User[].class)).thenReturn(responseEntity);
-        List<User> UserWithIn50MilesRadius = userWithInRadiusService.userWithInRadiusOfCoordinates(radius , lon_latitude , lon_longitude);
-
-       // assertThat(UserWithIn50MilesRadius).hasSize(londonUsers.length);
+        List<User> UserWithIn50MilesRadius = userWithInRadiusService.userWithInRadiusOfCoordinates(radius , LONDON_LATITUDE , LONDON_LONGITUDE);
+        assertThat(UserWithIn50MilesRadius).hasSize(closeUsers.length);
     }
 
     @Test
