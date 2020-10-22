@@ -1,9 +1,10 @@
 package com.rana.dwp.userlocation.service;
 
 import com.rana.dwp.userlocation.api.User;
-import com.rana.dwp.userlocation.util.GeoDistanceServiceImpl;
+import com.rana.dwp.userlocation.util.GeoDistanceService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,8 @@ class UserWithInRadiusServiceTest {
 
     private UsersWithInRadiusService userWithInRadiusService;
 
-    @Autowired
-    private GeoDistanceServiceImpl geoDistanceService;
+    @InjectMocks
+    private GeoDistanceService geoDistanceService;
 
     @BeforeEach
     public void setUp() {
@@ -47,15 +48,17 @@ class UserWithInRadiusServiceTest {
 
         User closeUser = new User();
         closeUser.setId(100);
-        closeUser.setLatitude(50.123456);
-        closeUser.setLongitude(20.7654);
+        closeUser.setLatitude(51.50853);
+        closeUser.setLongitude(-0.12574);
+        //51.50853, -0.12574
 
-        User[] mockusers = {closeUser};
-
-        ResponseEntity<User[]> responseEntity = new ResponseEntity<>(mockusers, HttpStatus.BAD_REQUEST);
+        User[] londonUsers = {closeUser};
+        User[] london = Utils.allusers();
+        ResponseEntity<User[]> responseEntity = new ResponseEntity<>(london, HttpStatus.OK);
         when(restTemplate.exchange(URI, HttpMethod.GET, null, User[].class)).thenReturn(responseEntity);
-        List<User> users = userWithInRadiusService.userWithInRadiusOfCoordinates(radius , lon_latitude , lon_longitude);
-        assertThat(users).isEmpty();
+        List<User> UserWithIn50MilesRadius = userWithInRadiusService.userWithInRadiusOfCoordinates(radius , lon_latitude , lon_longitude);
+
+       // assertThat(UserWithIn50MilesRadius).hasSize(londonUsers.length);
     }
 
     @Test

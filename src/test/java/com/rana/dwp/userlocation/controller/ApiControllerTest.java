@@ -14,7 +14,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.mockito.ArgumentMatchers.anyString;
@@ -59,7 +61,7 @@ class ApiControllerTest {
         user.setLatitude(50.123456);
         user.setLongitude(20.7654);
 
-        Set<User> users = Set.of(user);
+        List<User> users = List.of(user);
 
 
         when(service.usersWithInFifyMilesOdCity(anyString())).thenReturn(users);
@@ -67,13 +69,13 @@ class ApiControllerTest {
                 .perform(MockMvcRequestBuilders.get("/api/users/within-fifty-miles-london")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$..users[0].id").value(user.getId()))
-                .andExpect(jsonPath("$..users[0].first_name").value(user.getFirstName()))
-                .andExpect(jsonPath("$..users[0].last_name").value(user.getLastName()))
-                .andExpect(jsonPath("$..users[0].email").value(user.getEmail()))
-                .andExpect(jsonPath("$..users[0].ip_address").value(user.getIpAddress()))
-                .andExpect(jsonPath("$..users[0].latitude").value(user.getLatitude()))
-                .andExpect(jsonPath("$..users[0].longitude").value(user.getLongitude()));
+                .andExpect(jsonPath("$..id").value(user.getId()))
+                .andExpect(jsonPath("$..first_name").value(user.getFirstName()))
+                .andExpect(jsonPath("$..last_name").value(user.getLastName()))
+                .andExpect(jsonPath("$..email").value(user.getEmail()))
+                .andExpect(jsonPath("$..ip_address").value(user.getIpAddress()))
+                .andExpect(jsonPath("$..latitude").value(user.getLatitude()))
+                .andExpect(jsonPath("$..longitude").value(user.getLongitude()));
 
     }
 
@@ -81,35 +83,31 @@ class ApiControllerTest {
     public void test_within_fifty_MilesOflondon_api_Returns_with_fields() throws Exception {
 
         User user = new User();
-        Set<User> users = Set.of(user);
+        List<User> users = List.of(user);
         when(service.usersWithInFifyMilesOdCity(anyString())).thenReturn(users);
         this.mockMvc
                 .perform(MockMvcRequestBuilders.get("/api/users/within-fifty-miles-london")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.users").exists())
-                .andExpect(jsonPath("$..users[0]").exists())
-                .andExpect(jsonPath("$.users").isArray())
-                .andExpect(jsonPath("$..users[0].id").exists())
-                .andExpect(jsonPath("$..users[0].first_name").exists())
-                .andExpect(jsonPath("$..users[0].last_name").exists())
-                .andExpect(jsonPath("$..users[0].email").exists())
-                .andExpect(jsonPath("$..users[0].ip_address").exists())
-                .andExpect(jsonPath("$..users[0].latitude").exists())
-                .andExpect(jsonPath("$..users[0].longitude").exists())
-        ;
+                .andExpect(jsonPath("$..id").exists())
+                .andExpect(jsonPath("$..first_name").exists())
+                .andExpect(jsonPath("$..last_name").exists())
+                .andExpect(jsonPath("$..email").exists())
+                .andExpect(jsonPath("$..ip_address").exists())
+                .andExpect(jsonPath("$..latitude").exists())
+                .andExpect(jsonPath("$..longitude").exists());
 
     }
 
     @Test
     public void test_within_fifty_MilesOflondon_api_Returns_Empty_list() throws Exception {
-        Set<User> users = new HashSet<>();
+        List<User> users = new ArrayList<>();
         when(service.usersWithInFifyMilesOdCity(anyString())).thenReturn(users);
         this.mockMvc
                 .perform(MockMvcRequestBuilders.get("/api/users/within-fifty-miles-london")
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.users").exists());
+                .andExpect(status().isOk());
+
 
     }
 

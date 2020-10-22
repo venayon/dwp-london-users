@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 import java.util.Objects;
+import java.util.StringJoiner;
 
 public class User {
 
@@ -24,13 +25,13 @@ public class User {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return id == user.id &&
-                firstName.equals(user.firstName) &&
-                lastName.equals(user.lastName);
+                Double.compare(user.latitude, latitude) == 0 &&
+                Double.compare(user.longitude, longitude) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName);
+        return Objects.hash(id, latitude, longitude);
     }
 
     public int getId() {
@@ -87,6 +88,15 @@ public class User {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", User.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("latitude=" + latitude)
+                .add("longitude=" + longitude)
+                .toString();
     }
 }
 
