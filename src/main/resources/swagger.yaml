@@ -1,0 +1,77 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "London Users API",
+    "description": "Returns Users living in London, or whose current coordinates are within 50 miles of London - from Backend API https://bpdts-test-app.herokuapp.com/",
+    "version": "1.0",
+    "contact": {
+      "name": "Venu",
+      "url": "https://github.com/venayon/dwp-london-users"
+    }
+  },
+  "schemes": [
+      "http"
+  ],
+  "produces": [
+      "application/json"
+  ],
+  "paths": {
+    "/api/users/within-fifty-miles-london": {
+      "get": {
+        "summary": "GET London Users",
+        "description": "",
+        "tags": [
+            "LondonUsers"
+        ],
+        "operationId": "getLondonUsers",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "first_name": {
+                    "type": "string"
+                  },
+                  "last_name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "ip_address": {
+                    "type": "string"
+                  },
+                  "latitude": {
+                    "type": "number"
+                  },
+                  "longitude": {
+                    "type": "number"
+                  }
+                }
+              }
+            },
+            "examples": {
+              "application/json": [
+                {
+                  "id": 554,
+                  "email": "phebbsfd@umn.edu",
+                  "latitude": 51.5489435,
+                  "longitude": 0.3860497,
+                  "first_name": "Phyllys",
+                  "last_name": "Hebbs",
+                  "ip_address": "100.89.186.13"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}
